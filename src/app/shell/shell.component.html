@@ -1,0 +1,31 @@
+<div fxFlex>
+  <mat-sidenav-container class="bg-color-black" fxFill>
+    <mat-sidenav
+      class="bg-color-black"
+      #sidenav
+      [mode]="isMobile ? 'over' : 'side'"
+      [opened]="!isMobile"
+      [disableClose]="!isMobile"
+      ngClass.gt-sm="has-border"
+    >
+      <nav>
+        <mat-list>
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/covid-overview" routerLinkActive="active" (click)="isMobile && sidenav.close()">
+            <mat-icon>track_changes</mat-icon>
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/about" routerLinkActive="active" (click)="isMobile && sidenav.close()">
+            <mat-icon>info</mat-icon>
+          </a>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </nav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="container bg-color-black">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
