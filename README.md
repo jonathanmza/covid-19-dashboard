@@ -3,6 +3,8 @@
 I wanted to make a small dashboard web application since I received an email from Postman with some APIs related to COVID-19.
 And now, look where we are :)
 
+The web app is available [here](https://vibrant-mcnulty-59d734.netlify.com/).
+
 This project was generated with [ngX-Rocket](https://github.com/ngx-rocket/generator-ngx-rocket/)
 version 8.0.0
 
