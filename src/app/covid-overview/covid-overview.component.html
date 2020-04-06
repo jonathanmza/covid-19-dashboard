@@ -1,11 +1,11 @@
-<div fxLayout.lt-md="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutGap="1vw">
+<div fxLayout.xs="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutGap="1vw">
   <!-- Maps -->
-  <div fxLayout="row" fxFlex="88%" class="map-h">
+  <div fxLayout="row" fxFlex="88%" class="map-h" fxFlexOrder.xs="2">
     <div fxFill id="map"></div>
   </div>
 
   <!-- Information panel-->
-  <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="1vh" fxFlex>
+  <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="1vh" fxFlex fxFlexOrder.xs="1">
     <div class="white-box" fxLayout="column" fxLayoutAlign="space-around" fxFlex="25">
       <p class="text-color-grey text-font text-fw-bolder font-size-5vh">
         {{ totalCases }}

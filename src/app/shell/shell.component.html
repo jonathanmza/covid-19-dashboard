@@ -1,4 +1,4 @@
-<div fxFlex>
+<div class="bg-color-black" fxFlex>
   <mat-sidenav-container class="bg-color-black" fxFill>
     <mat-sidenav
       class="bg-color-black"
@@ -6,7 +6,6 @@
       [mode]="isMobile ? 'over' : 'side'"
       [opened]="!isMobile"
       [disableClose]="!isMobile"
-      ngClass.gt-sm="has-border"
     >
       <nav>
         <mat-list>
@@ -24,6 +23,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="container bg-color-black">
+        <mat-icon fxLayoutAlign="start" *ngIf="isMobile" (click)="sidenav.toggle()">menu</mat-icon>
         <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>
