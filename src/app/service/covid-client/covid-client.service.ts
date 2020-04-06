@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CovidCountrySummaryData } from '@app/model/covid-country-summary-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class CovidClientService {
   /**
    * Retrieve all the covid information for all countries
    */
-  public getAllCovidCountriesData(): Observable<any> {
-    return this.httpClient.get(this.COVID_URL);
+  public getAllCovidCountriesData(): Observable<CovidCountrySummaryData[]> {
+    return this.httpClient.get<CovidCountrySummaryData[]>(this.COVID_URL);
   }
 }

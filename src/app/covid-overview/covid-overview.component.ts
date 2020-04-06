@@ -10,31 +10,7 @@ import GeometryLayout from 'ol/geom/GeometryLayout';
 import Style from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
 import { CovidClientService } from '@app/service/covid-client/covid-client.service';
-import { Observable, of } from 'rxjs';
-
-interface CovidCountryInfo {
-  _id: number;
-  iso2: string;
-  iso3: string;
-  lat: number;
-  long: number;
-  flag: string;
-}
-
-interface CovidCountrySummaryData {
-  country: string;
-  countryInfo: CovidCountryInfo;
-  cases: number;
-  todayCases: number;
-  deaths: number;
-  todayDeaths: number;
-  recovered: number;
-  active: number;
-  critical: number;
-  casesPerOneMillion: number;
-  deathsPerOneMillion: number;
-  updated: number;
-}
+import { CovidCountrySummaryData } from '@app/model/covid-country-summary-data.model';
 
 @Component({
   selector: 'app-covid-overview',
@@ -68,7 +44,6 @@ export class CovidOverviewComponent implements OnInit {
           .getAllCovidCountriesData()
           .toPromise()
           .then((coviDataFromAPI) => {
-            console.table(coviDataFromAPI);
             this.data.push(...coviDataFromAPI);
             this.buildCovidCasesFeatures(coviDataFromAPI);
           });
