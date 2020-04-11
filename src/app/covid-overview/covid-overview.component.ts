@@ -82,25 +82,13 @@ export class CovidOverviewComponent implements OnInit {
    * @param covidData the covid data
    */
   private buildCovidCasesFeatures(covidData: CovidCountrySummaryData[]) {
-    const totalCases = this.calculateTotalCovidCases(covidData);
-
     covidData.forEach((covidDataItem) => {
       this.covidCasesVectorSource.addFeature(
         new Feature({
-          geometry: this.drawCovidCaseNumberCircle(covidDataItem, totalCases),
+          geometry: this.drawCovidCaseNumberCircle(covidDataItem, this.totalCases),
         })
       );
     });
-  }
-
-  /**
-   * Calculate the total number of cases
-   * @param covidData the covid data
-   */
-  private calculateTotalCovidCases(covidData: CovidCountrySummaryData[]): number {
-    return covidData
-      .map((cData) => cData.cases)
-      .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
   }
 
   /**

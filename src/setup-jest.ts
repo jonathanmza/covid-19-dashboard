@@ -1,3 +1,4 @@
+import 'jest';
 import 'jest-preset-angular';
 
 /* global mocks for jsdom */
