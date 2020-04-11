@@ -45,5 +45,9 @@ Object.defineProperty(window, 'matchMedia', {
   }),
 });
 
+Object.defineProperty(window.URL, 'createObjectURL', {
+  value: () => {},
+});
+
 /* output shorter and more meaningful Zone error stack traces */
 // Error.stackTraceLimit = 2;
