@@ -4,13 +4,11 @@ import TileLayer from 'ol/layer/Tile';
 import Stramen from 'ol/source/Stamen';
 import { fromLonLat } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
-import Circle from 'ol/geom/Circle';
-import GeometryLayout from 'ol/geom/GeometryLayout';
-import Style from 'ol/style/Style';
-import Fill from 'ol/style/Fill';
+import WebGLPointsLayer from 'ol/layer/WebGLPoints';
 import { CovidClientService } from '@app/service/covid-client/covid-client.service';
 import { CovidCountrySummaryData } from '@app/model/covid-country-summary-data.model';
+import { SymbolType } from 'ol/style/LiteralStyle';
+import Point from 'ol/geom/Point';
 
 @Component({
   selector: 'app-covid-overview',
@@ -20,11 +18,20 @@ import { CovidCountrySummaryData } from '@app/model/covid-country-summary-data.m
 export class CovidOverviewComponent implements OnInit {
   public map: Map;
   private readonly covidCasesVectorSource = new VectorSource();
-  private readonly CIRCLE_DEFAULT_RADIUS = 35000000;
+  private readonly CIRCLE_DEFAULT_RADIUS = 500;
   private readonly centerCoordinates = [30, 20];
   private readonly data: CovidCountrySummaryData[] = [];
 
-  private readonly ADDITIONAL_CIRCLE_RADIUS = 50000;
+  // Useful to see very small circles
+  private readonly ADDITIONAL_CIRCLE_RADIUS = 5;
+
+  private readonly CIRCLE_RGB_COLOR = [238, 34, 0];
+  private readonly CIRCLE_OPACITY = 0.6;
+  private readonly CIRCLE_SIZE_FORMULA = [
+    '+',
+    ['/', ['*', this.CIRCLE_DEFAULT_RADIUS, ['get', 'cases']], ['/', ['get', 'totalCases'], ['zoom']]],
+    this.ADDITIONAL_CIRCLE_RADIUS,
+  ];
 
   constructor(private covidService: CovidClientService) {}
 
@@ -32,12 +39,6 @@ export class CovidOverviewComponent implements OnInit {
     this.buildCovidMap()
       .then((fulfilledCovidMap) => {
         this.map = fulfilledCovidMap;
-
-        // Listening to zoom changes in order to redraw the circles
-        this.map.getView().on('change:resolution', () => {
-          this.covidCasesVectorSource.clear();
-          this.buildCovidCasesFeatures(this.data);
-        });
       })
       .then(() => {
         this.covidService
@@ -63,9 +64,17 @@ export class CovidOverviewComponent implements OnInit {
               layer: 'toner',
             }),
           }),
-          new VectorLayer({
+          new WebGLPointsLayer({
             source: this.covidCasesVectorSource,
-            style: this.buildStyle([238, 34, 0], 0.6),
+            style: {
+              symbol: {
+                symbolType: SymbolType.CIRCLE,
+                size: this.CIRCLE_SIZE_FORMULA,
+                color: this.CIRCLE_RGB_COLOR,
+                rotateWithView: false,
+                opacity: this.CIRCLE_OPACITY,
+              },
+            },
           }),
         ],
         view: new View({
@@ -85,37 +94,11 @@ export class CovidOverviewComponent implements OnInit {
     covidData.forEach((covidDataItem) => {
       this.covidCasesVectorSource.addFeature(
         new Feature({
-          geometry: this.drawCovidCaseNumberCircle(covidDataItem, this.totalCases),
+          geometry: new Point(fromLonLat([covidDataItem.countryInfo.long, covidDataItem.countryInfo.lat])),
+          cases: covidDataItem.cases,
+          totalCases: this.totalCases,
         })
       );
-    });
-  }
-
-  /**
-   * Draw a circle. The radius depends on the number of country's cases relative
-   * to the total cases and the the zoom level
-   * @param covidDataItem a covid data item
-   * @param totalCases the total number of cases
-   */
-  private drawCovidCaseNumberCircle(covidDataItem: CovidCountrySummaryData, totalCases: number): Circle {
-    return new Circle(
-      fromLonLat([covidDataItem.countryInfo.long, covidDataItem.countryInfo.lat]),
-      (this.CIRCLE_DEFAULT_RADIUS * covidDataItem.cases) / totalCases / this.map.getView().getZoom() +
-        this.ADDITIONAL_CIRCLE_RADIUS,
-      GeometryLayout.XY
-    );
-  }
-
-  /**
-   * Build an open layer style object
-   * @param rgbColor the RGB color as an array
-   * @param opacity the opacity between 0 and 1
-   */
-  private buildStyle(rgbColor: number[], opacity: number): Style {
-    return new Style({
-      fill: new Fill({
-        color: [...rgbColor, opacity],
-      }),
     });
   }
 
