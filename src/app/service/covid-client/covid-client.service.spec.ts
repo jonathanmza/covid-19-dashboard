@@ -36,7 +36,7 @@ describe('CovidClientService', () => {
       .subscribe();
 
     // Assert
-    httpMockAPI.expectOne('https://corona.lmao.ninja/countries').flush(fakeCovidDataList);
+    httpMockAPI.expectOne('https://corona.lmao.ninja/v2/countries').flush(fakeCovidDataList);
     httpMockAPI.verify();
     expect(resultCovidDataList.length).toBe(1);
     expect(resultCovidDataList).toMatchObject([{ cases: 707 }]);
