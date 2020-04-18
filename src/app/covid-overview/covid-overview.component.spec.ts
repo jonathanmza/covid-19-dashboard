@@ -36,7 +36,7 @@ describe('CovidOverviewComponent', () => {
     await fixture.whenStable();
 
     // Assert
-    httpMockAPI.expectOne('https://corona.lmao.ninja/countries');
+    httpMockAPI.expectOne('https://corona.lmao.ninja/v2/countries');
     httpMockAPI.verify();
   });
 });
