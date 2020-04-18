@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CovidCountrySummaryData } from '@app/model/covid-country-summary-data.model';
 
@@ -7,7 +7,7 @@ import { CovidCountrySummaryData } from '@app/model/covid-country-summary-data.m
   providedIn: 'root',
 })
 export class CovidClientService {
-  private readonly COVID_URL = 'https://corona.lmao.ninja/countries';
+  private readonly COVID_URL = 'https://corona.lmao.ninja/v2/countries';
 
   constructor(private httpClient: HttpClient) {}
 
