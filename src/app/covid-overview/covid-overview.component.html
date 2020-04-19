@@ -1,11 +1,18 @@
-<div fxLayout.xs="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutGap="1vw">
+<div fxLayout.lt-lg="column" fxLayout.gt-lg="row" fxLayoutAlign="space-around stretch" fxLayoutGap="1vh">
   <!-- Maps -->
-  <div fxLayout="row" fxFlex="88%" class="map-h" fxFlexOrder.xs="2">
-    <div fxFill id="map"></div>
+  <div class="map-h" fxFlex="88%" fxLayout="column" fxLayoutAlign="space-between" fxFlexOrder.lt-lg="2">
+    <div id="map" fxFlex.lt-lg="100vh" fxFlexOrder.lt-lg="2"></div>
+    <div fxFlex fxLayoutAlig="space-around stretch" fxFlexOrder.lt-lg="1">
+      <app-covid-charts
+        fxLayout.lt-lg="column"
+        fxLayout.gt-lg="row"
+        fxLayoutGap.lt-lg="5vh"
+        [historicalData]="selectedCountryHistoricalData"
+      ></app-covid-charts>
+    </div>
   </div>
-
   <!-- Information panel-->
-  <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="1vh" fxFlex="12%" fxFlexOrder.xs="1">
+  <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="1vh" fxFlexOrder.lt-lg="1">
     <div class="white-box" fxLayout="column" fxLayoutAlign="space-around" fxFlex="25">
       <p class="text-color-grey text-font text-fw-bolder font-size-5vh">
         {{ totalCases }}

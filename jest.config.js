@@ -3,7 +3,7 @@ module.exports = {
   preset: 'jest-preset-angular',
   roots: ['src'],
   coverageDirectory: 'reports',
-  setupFilesAfterEnv: ['<rootDir>/src/setup-jest.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/setup-jest.ts', 'jest-canvas-mock'],
   moduleNameMapper: {
     '@app/(.*)': '<rootDir>/src/app/$1',
     '@core': ['<rootDir>/src/app/@core'],
