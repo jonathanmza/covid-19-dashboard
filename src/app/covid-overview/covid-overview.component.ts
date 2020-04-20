@@ -9,6 +9,8 @@ import { CovidClientService } from '@app/service/covid-client/covid-client.servi
 import { CovidCountrySummaryData } from '@app/model/covid-country-summary-data.model';
 import { SymbolType } from 'ol/style/LiteralStyle';
 import Point from 'ol/geom/Point';
+import { CovidCountryHistorical } from '@app/model/covid-country-historical.model';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-covid-overview',
@@ -17,9 +19,10 @@ import Point from 'ol/geom/Point';
 })
 export class CovidOverviewComponent implements OnInit {
   public map: Map;
+  public selectedCountryHistoricalData: CovidCountryHistorical;
   private readonly covidCasesVectorSource = new VectorSource();
   private readonly CIRCLE_DEFAULT_RADIUS = 500;
-  private readonly centerCoordinates = [30, 20];
+  private readonly centerCoordinates = [-10, 30];
   private readonly data: CovidCountrySummaryData[] = [];
 
   // Useful to see very small circles
@@ -36,9 +39,11 @@ export class CovidOverviewComponent implements OnInit {
   constructor(private covidService: CovidClientService) {}
 
   ngOnInit(): void {
+    this.loadHistoricalDataByCountry('france');
     this.buildCovidMap()
       .then((fulfilledCovidMap) => {
         this.map = fulfilledCovidMap;
+        this.listenToCircleClicked();
       })
       .then(() => {
         this.covidService
@@ -79,7 +84,7 @@ export class CovidOverviewComponent implements OnInit {
         ],
         view: new View({
           center: fromLonLat(this.centerCoordinates),
-          zoom: 0,
+          zoom: 3,
         }),
       })
     );
@@ -97,7 +102,30 @@ export class CovidOverviewComponent implements OnInit {
           geometry: new Point(fromLonLat([covidDataItem.countryInfo.long, covidDataItem.countryInfo.lat])),
           cases: covidDataItem.cases,
           totalCases: this.totalCases,
+          country: covidDataItem.country,
         })
+      );
+    });
+  }
+
+  /**
+   * Load all covid historical data
+   * @param countryName the name of the country
+   */
+  private loadHistoricalDataByCountry(countryName: string) {
+    this.covidService
+      .getAllCovidCountryHistoricData(countryName)
+      .pipe(tap((defaultCountryData) => (this.selectedCountryHistoricalData = defaultCountryData)))
+      .subscribe();
+  }
+
+  /**
+   * Listen to circle's click event
+   */
+  private listenToCircleClicked() {
+    this.map.on('click', (e) => {
+      this.map.forEachFeatureAtPixel(e.pixel, (feature, layer) =>
+        this.loadHistoricalDataByCountry(feature.get('country'))
       );
     });
   }

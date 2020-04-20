@@ -1,0 +1,45 @@
+<div fxFlex="33%">
+  <canvas
+    fxFlexFill
+    baseChart
+    #caseChart
+    [datasets]="lineCasesChartData"
+    [labels]="lineCasesChartLabels"
+    [options]="lineChartOptions"
+    [colors]="redLineChartColors"
+    [legend]="lineChartLegend"
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins"
+  >
+  </canvas>
+</div>
+<div fxFlex="33%">
+  <canvas
+    fxFlexFill
+    baseChart
+    #deathChart
+    [datasets]="lineDeathsChartData"
+    [labels]="lineDeathsChartLabels"
+    [options]="lineChartOptions"
+    [colors]="redLineChartColors"
+    [legend]="lineChartLegend"
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins"
+  >
+  </canvas>
+</div>
+<div fxFlex="33%">
+  <canvas
+    fxFlexFill
+    baseChart
+    #recoveredChart
+    [datasets]="lineRecoveredChartData"
+    [labels]="lineRecoveredChartLabels"
+    [options]="lineChartOptions"
+    [colors]="greenLineChartColors"
+    [legend]="lineChartLegend"
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins"
+  >
+  </canvas>
+</div>
