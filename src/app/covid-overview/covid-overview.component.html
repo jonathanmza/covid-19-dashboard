@@ -1,40 +1,57 @@
-<div fxLayout.lt-lg="column" fxLayout.gt-lg="row" fxLayoutAlign="space-around stretch" fxLayoutGap="1vh">
+<div
+  fxLayout.lt-lg="column"
+  fxLayout.gt-lg="row"
+  fxLayoutAlign="space-around stretch"
+  fxLayoutGap.lt-md="4vh"
+  fxLayoutGap.gt-md="1vh"
+>
   <!-- Maps -->
-  <div class="map-h" fxFlex="88%" fxLayout="column" fxLayoutAlign="space-between" fxFlexOrder.lt-lg="2">
+  <div
+    class="map-h"
+    fxFlex.xs="100vw"
+    fxFlex.sm="100vw"
+    fxFlex.gt-sm="88%"
+    fxLayout="column"
+    fxLayoutAlign="space-between"
+    fxFlexOrder.lt-lg="2"
+  >
     <div id="map" fxFlex.lt-lg="100vh" fxFlexOrder.lt-lg="2"></div>
-    <div fxFlex fxLayoutAlig="space-around stretch" fxFlexOrder.lt-lg="1">
-      <app-covid-charts
-        fxLayout.lt-lg="column"
-        fxLayout.gt-lg="row"
-        fxLayoutGap.lt-lg="5vh"
-        [historicalData]="selectedCountryHistoricalData"
-      ></app-covid-charts>
+    <div fxFlex fxFlexOrder.lt-lg="1">
+      <app-covid-charts [historicalData]="selectedCountryHistoricalData"></app-covid-charts>
     </div>
   </div>
   <!-- Information panel-->
-  <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="1vh" fxFlexOrder.lt-lg="1">
-    <div class="white-box" fxLayout="column" fxLayoutAlign="space-around" fxFlex="25">
-      <p class="text-color-grey text-font text-fw-bolder font-size-5vh">
+  <div
+    fxLayout="column"
+    fxLayoutAlign="space-between"
+    fxLayoutGap="1vh"
+    fxFlexOrder.lt-lg="1"
+    fxFlex.xs="100vw"
+    fxFlex.sm="100vw"
+    fxFlex.md="88vw"
+  >
+    <div class="black-box" fxLayout="column" fxLayoutAlign="space-around" fxFlex="25">
+      <span class="text-color-grey text-font text-fw-bolder font-size-5vh">
         {{ totalCases }}
-      </p>
+      </span>
       <span class="text-color-grey text-font text-fw-bolder font-size-2vh">Nombre total de cas</span>
     </div>
-    <div class="white-box" fxFlex="25" fxLayout="column" fxLayoutAlign="space-around">
-      <p class="text-color-grey text-font text-fw-bolder font-size-5vh">
+    <div class="black-box" fxFlex="25" fxLayout="column" fxLayoutAlign="space-around">
+      <span class="text-color-grey text-font text-fw-bolder font-size-5vh">
         {{ totalDeaths }}
-      </p>
+      </span>
       <span class="text-color-grey text-font text-fw-bolder font-size-2vh">Nombre de morts</span>
     </div>
-    <div class="white-box" fxFlex="25" fxLayout="column" fxLayoutAlign="space-around">
-      <p class="text-color-grey text-font text-fw-bolder font-size-5vh">
+    <div class="black-box" fxFlex="25" fxLayout="column" fxLayoutAlign="space-around">
+      <span class="text-color-grey text-font text-fw-bolder font-size-5vh">
         {{ totalDeathsToday }}
-      </p>
+      </span>
       <span class="text-color-grey text-font text-fw-bolder font-size-2vh">Nombre de morts aujourd'hui</span>
     </div>
-    <div class="white-box" fxFlex="25" fxLayout="column" fxLayoutAlign="space-around">
-      <p class="text-color-grey text-font text-fw-bolder font-size-5vh">
+    <div class="black-box" fxFlex="25" fxLayout="column" fxLayoutAlign="space-around">
+      <span class="text-color-grey text-font text-fw-bolder font-size-5vh">
         {{ totalRecovered }}
-      </p>
+      </span>
       <span class="text-color-grey text-font text-fw-bolder font-size-2vh">Nombre de guérisons</span>
     </div>
   </div>
