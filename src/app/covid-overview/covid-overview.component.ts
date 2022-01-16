@@ -7,10 +7,10 @@ import VectorSource from 'ol/source/Vector';
 import WebGLPointsLayer from 'ol/layer/WebGLPoints';
 import { CovidClientService } from '@app/service/covid-client/covid-client.service';
 import { CovidCountrySummaryData } from '@app/model/covid-country-summary-data.model';
-import { SymbolType } from 'ol/style/LiteralStyle';
 import Point from 'ol/geom/Point';
 import { CovidCountryHistorical } from '@app/model/covid-country-historical.model';
 import { tap } from 'rxjs/operators';
+import { SymbolType } from 'ol/style/literal';
 
 @Component({
   selector: 'app-covid-overview',

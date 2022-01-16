@@ -64,7 +64,6 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "hmr": true,
-            "hmrWarning": false,
             "browserTarget": "covid-19-dashboard:build"
           },
           "configurations": {
@@ -86,7 +85,8 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "watch": true
+            "watch": true,
+            "runInBand": false
           },
           "configurations": {
             "ci": {
