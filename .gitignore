@@ -58,3 +58,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+.vscode/settings.json
+nbproject/project.properties
+nbproject/project.xml
+nbproject/private/private.properties
